@@ -6,5 +6,6 @@ const router = express.Router();
 router.post("/", CustomerController.CreateCustomer);
 router.get("/", CustomerController.GetAllCustomer);
 router.get("/:id", CustomerController.GetCustomerById);
+router.put("/:id", CustomerController.UpdateCustomarById);
 
 export const CustomerRoute = router;

@@ -34,8 +34,37 @@ const GetCustomerById = async (customerId: string) => {
   return result;
 };
 
+const UpdateCustomarById = async (
+  customerId: string,
+  customerData: Partial<Customer>
+) => {
+  // console.log(customerId);
+  // console.log(customerData);
+
+  const isExist = await prisma.customer.findUnique({
+    where: {
+      customerId,
+    },
+  });
+  // console.log(isExist);
+
+  if (!isExist) {
+    throw new Error("Customer Not Found.");
+  }
+
+  const result = await prisma.customer.update({
+    where: {
+      customerId,
+    },
+    data: customerData,
+  });
+
+  return result;
+};
+
 export const CustomerServices = {
   CreateCustomer,
   GetAllCustomer,
-  GetCustomerById
+  GetCustomerById,
+  UpdateCustomarById,
 };
