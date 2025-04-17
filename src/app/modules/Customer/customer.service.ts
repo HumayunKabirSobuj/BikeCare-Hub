@@ -37,7 +37,7 @@ const GetCustomerById = async (customerId: string) => {
 const UpdateCustomarById = async (
   customerId: string,
   customerData: Partial<Customer>
-) => {
+):Promise<Customer> => {
   // console.log(customerId);
   // console.log(customerData);
 
