@@ -26,6 +26,16 @@ const GetAllCustomer = async () => {
   return result;
 };
 const GetCustomerById = async (customerId: string) => {
+  const isExist = await prisma.customer.findUnique({
+    where: {
+      customerId,
+    },
+  });
+  // console.log(isExist);
+
+  if (!isExist) {
+    throw new Error("Customer Not Found.");
+  }
   const result = await prisma.customer.findUnique({
     where: {
       customerId,
@@ -37,7 +47,7 @@ const GetCustomerById = async (customerId: string) => {
 const UpdateCustomarById = async (
   customerId: string,
   customerData: Partial<Customer>
-):Promise<Customer> => {
+): Promise<Customer> => {
   // console.log(customerId);
   // console.log(customerData);
 
@@ -61,10 +71,34 @@ const UpdateCustomarById = async (
 
   return result;
 };
+const DeleteCustomarById = async (customerId: string): Promise<Customer> => {
+  // console.log(customerId);
+  // console.log(customerData);
+
+  const isExist = await prisma.customer.findUnique({
+    where: {
+      customerId,
+    },
+  });
+  // console.log(isExist);
+
+  if (!isExist) {
+    throw new Error("Customer Not Found.");
+  }
+
+  const result = await prisma.customer.delete({
+    where: {
+      customerId,
+    },
+  });
+
+  return result;
+};
 
 export const CustomerServices = {
   CreateCustomer,
   GetAllCustomer,
   GetCustomerById,
   UpdateCustomarById,
+  DeleteCustomarById
 };

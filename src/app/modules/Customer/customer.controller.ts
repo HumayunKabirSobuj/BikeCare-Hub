@@ -6,7 +6,7 @@ import { CustomerServices } from "./customer.service";
 const CreateCustomer = catchAsync(async (req, res) => {
   const result = await CustomerServices.CreateCustomer(req.body);
   sendResponse(res, {
-    statusCode: status.OK,
+    statusCode: status.CREATED,
     success: true,
     message: "Customer created successfully",
     data: result,
@@ -42,10 +42,20 @@ const UpdateCustomarById = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const DeleteCustomarById = catchAsync(async (req, res) => {
+  const result = await CustomerServices.DeleteCustomarById(req.params.id);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Customer deleted successfully",
+    data: result,
+  });
+});
 
 export const CustomerController = {
   CreateCustomer,
   GetAllCustomer,
   GetCustomerById,
-  UpdateCustomarById
+  UpdateCustomarById,
+  DeleteCustomarById
 };
