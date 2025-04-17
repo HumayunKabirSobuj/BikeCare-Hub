@@ -51,7 +51,6 @@ const UpdateServiceById = async (
   serviceId: string,
   serviceData: Partial<ServiceRecord>
 ): Promise<ServiceRecord> => {
-
   const isExist = await prisma.serviceRecord.findUnique({
     where: {
       serviceId,
@@ -76,9 +75,35 @@ const UpdateServiceById = async (
   return result;
 };
 
+export const fetchOverdueOrPendingServices = async () => {
+  const sevenDaysAgo = new Date();
+
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+  const result = await prisma.serviceRecord.findMany({
+    where: {
+      AND: [
+        {
+          status: {
+            in: [ServiceStatus.pending, ServiceStatus.in_progress],
+          },
+        },
+        {
+          serviceDate: {
+            lt: sevenDaysAgo,
+          },
+        },
+      ],
+    },
+  });
+
+  return result;
+};
+
 export const ServiceDataService = {
   CreateService,
   GetAllService,
   GetServiceById,
-  UpdateServiceById
+  UpdateServiceById,
+  fetchOverdueOrPendingServices,
 };
