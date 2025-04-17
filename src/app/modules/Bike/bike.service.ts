@@ -22,6 +22,12 @@ const CreateBike = async (bikeData: Bike) => {
   return result;
 };
 
+const GetAllBike = async () => {
+  const result = await prisma.bike.findMany();
+  return result;
+};
+
 export const BikeServices = {
   CreateBike,
+  GetAllBike,
 };
