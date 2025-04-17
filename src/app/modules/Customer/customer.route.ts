@@ -3,7 +3,8 @@ import { CustomerController } from "./customer.controller";
 
 const router = express.Router();
 
-router.post('/', CustomerController.CreateCustomer)
-router.get('/', CustomerController.GetAllCustomer)
+router.post("/", CustomerController.CreateCustomer);
+router.get("/", CustomerController.GetAllCustomer);
+router.get("/:id", CustomerController.GetCustomerById);
 
 export const CustomerRoute = router;
