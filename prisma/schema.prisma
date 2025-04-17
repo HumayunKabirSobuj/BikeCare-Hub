@@ -44,6 +44,8 @@ model ServiceRecord {
   completionDate DateTime?
   description    String
   status         ServiceStatus
+
+  @@map("ServiceRecord")
 }
 
 enum ServiceStatus {
