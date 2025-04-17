@@ -23,7 +23,33 @@ const GetAllService = catchAsync(async (req, res) => {
   });
 });
 
+const GetServiceById = catchAsync(async (req, res) => {
+  const result = await ServiceDataService.GetServiceById(req.params.id);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Service record fetched successfully",
+    data: result,
+  });
+});
+
+const UpdateServiceById = catchAsync(async (req, res) => {
+    const result = await ServiceDataService.UpdateServiceById(
+      req.params.id,
+      req.body
+    );
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "Service marked as completed",
+      data: result,
+    });
+  });
+
+
 export const ServiceDataController = {
   CreateService,
   GetAllService,
+  GetServiceById,
+  UpdateServiceById
 };
